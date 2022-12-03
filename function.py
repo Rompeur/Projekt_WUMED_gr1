@@ -1,2 +1,2 @@
 def fun():
-    print("5")
+    print("7")
