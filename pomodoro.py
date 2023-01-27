@@ -80,3 +80,45 @@ class Pomodoro:
         timer_id = self.tabs.index(self.tabs.select()) + 1
 
         ## TODO Finish function `start_timer`
+
+        if timer_id == 1:
+            full_seconds = 60 * 35
+            while full_seconds > 0 and not self.stopped:
+                minutes, seconds = divmod(full_seconds, 60)
+                self.pomodoro_label.config(text=f"{minutes:02d}:{seconds:02d}")
+                self.root.update()
+                time.sleep(1)
+                full_seconds -= 1
+            #adding pomodoros and selecting whether the user should have short or long break
+            if not self.stopped or self.skipped:
+                self.pomodoros += 1
+                self.pomodoro_counter_label.config(text=f"Pomodoros {self.pomodoros}")
+                if self.pomodoros % 4 == 0:
+                    self.tabs.select(2)
+                else:
+                    self.tabs.select(1)
+                self.start_timer()
+        elif timer_id == 2:
+            full_seconds = 60 * 5
+            while full_seconds > 0 and not self.stopped:
+                minutes, seconds = divmod(full_seconds, 60)
+                self.short_break_timer_label.config(text=f"{minutes:02d}:{seconds:02d}")
+                self.root.update()
+                time.sleep(1)
+                full_seconds -= 1
+            if not self.stopped or self.skipped:
+                self.tabs.select(0)
+                self.start_timer()
+        elif timer_id == 3:
+            full_seconds = 60 * 15
+            while full_seconds > 0 and not self.stopped:
+                minutes, seconds = divmod(full_seconds, 60)
+                self.long_break_timer_label.config(text=f"{minutes:02d}:{seconds:02d}")
+                self.root.update()
+                time.sleep(1)
+                full_seconds -= 1
+            if not self.stopped or self.skipped:
+                self.tabs.select(0)
+                self.start_timer()
+            else:
+                print("Invalid timer id")
