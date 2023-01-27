@@ -3,12 +3,15 @@ import threading
 import tkinter as tk
 from tkinter import ttk, PhotoImage
 
+SIZE = "700x300"
+TITLE = "Pomodoro Timer"
+
 class Pomodoro:
 
     def __init__(self):
         self.root = tk.Tk()
-        self.root.geometry("700x300")
-        self.root.title("Pomodoro Timer")
+        self.root.geometry(SIZE)
+        self.root.title(TITLE)
         self.root.tk.call('wm', 'iconphoto', self.root._w, PhotoImage(file='tomato.png'))
 
         #simple style adding
@@ -21,9 +24,10 @@ class Pomodoro:
         self.tabs.pack(fill="both", pady=10, expand=True)
 
         #creating individual frames for each tab
-        self.tab1 = ttk.Frame(self.tabs, width=700, height=100)
-        self.tab2 = ttk.Frame(self.tabs, width=700, height=100)
-        self.tab3 = ttk.Frame(self.tabs, width=700, height=100)
+        tWidth, tHeight = 700, 100
+        self.tab1 = ttk.Frame(self.tabs, width=tWidth, height=tHeight)
+        self.tab2 = ttk.Frame(self.tabs, width=tWidth, height=tHeight)
+        self.tab3 = ttk.Frame(self.tabs, width=tWidth, height=tHeight)
 
         #the timers are adjustable up to the preference of the user
         self.pomodoro_label = ttk.Label(self.tab1, text="35:00", font=("Ubuntu", 50))
@@ -58,9 +62,7 @@ class Pomodoro:
         self.pomodoro_counter_label.grid(row=1, column=0, columnspan=3, pady=6)
 
         self.pomodoros = 0
-        self.skipped = False
-        self.stopped = False
-        self.running = False
+        self.skipped = self.stopped = self.running = False
 
         # runs the application so it can be interacted with limitlessly
         self.root.mainloop()
@@ -74,8 +76,7 @@ class Pomodoro:
 
     def start_timer(self):
         #stopping other functions in case they are true
-        self.stopped = False
-        self.skipped = False
+        self.stopped =  self.skipped = False
         timer_id = self.tabs.index(self.tabs.select()) + 1
 
         ## TODO Finish function `start_timer`
