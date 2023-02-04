@@ -14,6 +14,7 @@ class Pomodoro:
         self.root.title(TITLE)
         self.root.tk.call('wm', 'iconphoto', self.root._w, PhotoImage(file='tomato.png'))
 
+
         #simple style adding
         self.s = ttk.Style()
         self.s.configure("TNotebook.Tab", font=("Ubuntu", 16))
@@ -122,3 +123,26 @@ class Pomodoro:
                 self.start_timer()
             else:
                 print("Invalid timer id")
+                def reset_timer(self):
+        self.stopped = True
+        self.reset = False
+        self.pomodoros = 0
+        self.pomodoro_label.config(text="35:00")
+        self.short_break_timer_label.config(text="05:00")
+        self.long_break_timer_label.config(text="15:00")
+        self.pomodoro_counter_label.config(text="Pomodoros: 0")
+        self.running = False
+
+    def skip_timer(self):
+        current_tab = self.tabs.index(self.tabs.select())
+        if current_tab == 0:
+            self.pomodoro_label.config(text="35:00")
+        elif current_tab == 1:
+            self.short_break_timer_label.config(text="05:00")
+        elif current_tab == 2:
+            self.long_break_timer_label.config(text="15:00")
+
+        self.stopped = True
+        self.skipped = True
+
+Pomodoro()
